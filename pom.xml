@@ -3,7 +3,7 @@
 
     <groupId>com.cfnstacks</groupId>
     <artifactId>cfn-public-only-vpc</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.3-SNAPSHOT</version>
 
     <properties>
         <aws.maven.plugin.version>6.0.2</aws.maven.plugin.version>
@@ -18,7 +18,7 @@
     <scm>
         <url>https://github.com/cfn-stacks/cfn-public-only-vpc.git</url>
         <connection>scm:git:https://github.com/cfn-stacks/cfn-public-only-vpc.git</connection>
-        <tag>v0.0.2</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <licenses>
