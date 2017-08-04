@@ -162,7 +162,7 @@ Outputs:
       Name: !Sub '${AWS::StackName}-VPCID'
   CfnStacksId:
     Description: cfn-stacks.com artifact id
-    Value: ${project.artifactId}
+    Value: @project.artifactId@
   CfnStacksVersion:
     Description: cfn-stacks.com artifact version
-    Value: v${project.version}
+    Value: v@project.version@

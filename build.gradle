@@ -1,0 +1,67 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+import com.amazonaws.auth.profile.ProfileCredentialsProvider
+
+buildscript {
+    repositories { mavenCentral() }
+    dependencies { classpath 'com.amazonaws:aws-java-sdk:1.11.172' }
+}
+
+plugins {
+    id 'maven-publish'
+    id 'net.researchgate.release' version '2.4.0'
+}
+
+group = 'com.cfnstacks'
+description = 'Example project using templates'
+
+defaultProperty('artifacts3', 'cfn-stacks.com.s3.us-east-2.amazonaws.com')
+def defaultProperty(String name, defaultValue) {
+    if(!hasProperty(name)) { ext."$name" = defaultValue }
+}
+
+task copyAndFilter(type: Sync) {
+    from 'src/main/cloudformation'
+    into "$buildDir/cloudformation"
+    filter(ReplaceTokens, tokens: [artifactId: project.name, version: project.version])
+}
+
+task build(type: Jar, dependsOn: [copyAndFilter]) {
+    from 'build/cloudformation'
+    archiveName = "$buildDir/${rootProject.name}-${project.version}.cfn.jar"
+}
+
+task clean(type: Delete) {
+    delete 'build'
+}
+
+publishing {
+    publications {
+        cfnJar(MavenPublication) {
+            artifact build
+        }
+    }
+    repositories {
+        maven {
+            url "s3://${artifacts3}/${project.version.endsWith('-SNAPSHOT') ? 'snapshot' : 'release'}/"
+            credentials(AwsCredentials) {
+                if(System.getenv('AWS_ACCESS_KEY_ID') != null &&
+                    System.getenv('AWS_SECRET_ACCESS_KEY')) {
+                    accessKey System.getenv('AWS_ACCESS_KEY_ID')
+                    secretKey System.getenv('AWS_SECRET_ACCESS_KEY')
+                } else {
+                    if (project.hasProperty('aws_profile_name')) {
+                        def creds = new ProfileCredentialsProvider("$aws_profile_name").getCredentials();
+                        accessKey creds.getAWSAccessKeyId()
+                        secretKey creds.getAWSSecretKey()
+                    } else {
+                        throw new GradleException('No AWS credential environment variables or profile name found')
+                    }
+                }
+            }
+        }
+    }
+}
+
+release {
+    tagTemplate = 'v${version}'
+}
