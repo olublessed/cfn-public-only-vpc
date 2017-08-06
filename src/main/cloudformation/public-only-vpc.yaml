@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: This template creates a simplie multi-az VPC with all public subnets
+Description: This template creates a multi-az VPC with all public subnets
 Parameters:
   AvailabilityZones:
     Description: >-

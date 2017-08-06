@@ -8,7 +8,7 @@ plugins {
 }
 
 group = 'com.cfnstacks'
-description = 'Example project using templates'
+description = 'Multi-AZ VPC with all public subnets'
 
 release { tagTemplate = 'v${version}' }
 afterReleaseBuild.dependsOn publish
