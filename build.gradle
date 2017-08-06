@@ -1,7 +1,5 @@
 buildscript {
-    repositories {
-        repositories { maven { url "https://plugins.gradle.org/m2/" } }
-    }
+    repositories { maven { url "https://plugins.gradle.org/m2/" } }
 }
 
 plugins {
@@ -12,6 +10,5 @@ plugins {
 group = 'com.cfnstacks'
 description = 'Example project using templates'
 
-release {
-    tagTemplate = 'v${version}'
-}
+release { tagTemplate = 'v${version}' }
+afterReleaseBuild.dependsOn publish
