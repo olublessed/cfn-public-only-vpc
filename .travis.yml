@@ -1,4 +1,5 @@
 language: java
+before_script: chmod a+x gradlew
 script: ./gradlew publish
 branches:
   only:
