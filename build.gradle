@@ -3,7 +3,7 @@ buildscript {
 }
 
 plugins {
-    id 'com.cfnstacks.gradle.artifacts3' version '0.0.5'
+    id 'com.cfnstacks.gradle.artifacts3' version '0.0.7'
     id 'net.researchgate.release' version '2.6.0'
 }
 
