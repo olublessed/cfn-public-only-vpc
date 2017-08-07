@@ -1,5 +1,5 @@
 language: java
-before_script: chmod a+x gradlew
+install: echo "skip 'gradle assemble' step"
 script: ./gradlew publish
 branches:
   only:
