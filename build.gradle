@@ -4,6 +4,7 @@ buildscript {
 
 plugins {
     id 'com.cfnstacks.gradle.artifacts3' version '0.0.10'
+    id 'net.researchgate.release' version '2.6.0'
 }
 
 group = 'com.cfnstacks'
