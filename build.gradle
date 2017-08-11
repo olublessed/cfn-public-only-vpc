@@ -19,3 +19,5 @@ artifacts3 {
     profileName = p
     repo = r
 }
+
+release { tagTemplate = 'v${version}' }
