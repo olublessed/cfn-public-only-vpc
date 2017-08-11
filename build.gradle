@@ -10,8 +10,6 @@ plugins {
 group = 'com.cfnstacks'
 description = 'Multi-AZ VPC with all public subnets'
 
-(hasProperty('repo')) ? println('~~~~~~~' + repo) : println('nope')
-
 // Artifact Publishing Configuration
 def p = (hasProperty('profile')) ? profile : ''
 def r = (hasProperty('repo')) ? repo : 'cfn-stacks.com.s3.us-east-2.amazonaws.com'
@@ -22,3 +20,5 @@ artifacts3 {
 }
 
 release { tagTemplate = 'v${version}' }
+afterReleaseBuild.dependsOn publish
+publish.dependsOn build
