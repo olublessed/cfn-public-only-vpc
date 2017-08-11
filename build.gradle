@@ -3,13 +3,8 @@ buildscript {
 }
 
 plugins {
-    id 'com.cfnstacks.gradle.artifacts3' version '0.0.8'
-    id 'net.researchgate.release' version '2.6.0'
+    id 'com.cfnstacks.gradle.artifacts3' version '0.0.10'
 }
 
 group = 'com.cfnstacks'
 description = 'Multi-AZ VPC with all public subnets'
-
-release { tagTemplate = 'v${version}' }
-afterReleaseBuild.dependsOn publish
-publish.dependsOn build
