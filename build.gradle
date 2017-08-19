@@ -3,22 +3,20 @@ buildscript {
 }
 
 plugins {
-    id 'com.cfnstacks.gradle.artifacts3' version '0.0.10'
-    id 'net.researchgate.release' version '2.6.0'
+    id 'com.cfnstacks.gradle.artifacts3' version '0.1.5'
 }
 
 group = 'com.cfnstacks'
 description = 'Multi-AZ VPC with all public subnets'
 
-// Artifact Publishing Configuration
-def p = (hasProperty('profile')) ? profile : ''
-def r = (hasProperty('repo')) ? repo : 'cfn-stacks.com.s3.us-east-2.amazonaws.com'
-artifacts3 {
-    group = 'com.amazon.aws'
-    profileName = p
-    repo = r
-}
+def params = [
+    group: (hasProperty('group')) ? group : 'com.cfnstacks',
+    profile: (hasProperty('profile')) ? profile : '',
+    repo: (hasProperty('repo')) ? repo : 'cfn-stacks.com.s3.us-east-2.amazonaws.com'
+]
 
-release { tagTemplate = 'v${version}' }
-afterReleaseBuild.dependsOn publish
-publish.dependsOn build
+artifacts3 {
+    group = params.group
+    profileName = params.profile
+    repo = params.repo
+}
